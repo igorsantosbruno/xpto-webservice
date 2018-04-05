@@ -19,45 +19,52 @@ public class XptoMaquina implements Serializable{
     private String numeroSerial;
 
     @ManyToOne
+    @JoinColumn(name = "id_empresa")
     private XptoEmpresa xptoEmpresa;
 
-    @OneToMany
-    private List<XptoSistemaOperacional> listaDeSistemaOperacional;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "xptoMaquina", cascade = CascadeType.ALL)
+    private XptoSistemaOperacional sistemaOperacional;
 
-    @OneToMany
-    private List<XptoFabricante> listaDeFabricante;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "xptoMaquina", cascade = CascadeType.ALL)
+    private XptoFabricante fabricante;
 
-    @OneToMany
-    private List<XptoCpu> listaDeCpu;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "xptoMaquina", cascade = CascadeType.ALL)
+    private XptoCpu cpu;
 
-    @OneToMany
-    private List<XptoProcesso> listaDeProcesso;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "xptoMaquina")
+    private List<XptoHd> listaDeHd;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "xptoMaquina", cascade = CascadeType.ALL)
+    private XptoProcesso processo;
 
     public XptoMaquina(){
 
-        this.id = 0;
+        /*this.id = 0;
         this.numeroSerial = "";
         this.xptoEmpresa = new XptoEmpresa();
-        this.listaDeSistemaOperacional = new ArrayList<XptoSistemaOperacional>();
-        this.listaDeFabricante = new ArrayList<XptoFabricante>();
-        this.listaDeCpu = new ArrayList<XptoCpu>();
-        this.listaDeProcesso = new ArrayList<XptoProcesso>();
+        this.sistemaOperacional = new XptoSistemaOperacional();
+        this.fabricante = new XptoFabricante();
+        this.cpu = new XptoCpu();
+        this.processo = new XptoProcesso();
+        this.listaDeHd = new ArrayList<XptoHd>();*/
     }
 
     public XptoMaquina(long id,
                        String numeroSerial,
                        XptoEmpresa xptoEmpresa,
-                       List<XptoSistemaOperacional> listaDeSistemaOperacional,
-                       List<XptoFabricante> listaDeFabricante,
-                       List<XptoCpu> listaDeCpu,
-                       List<XptoProcesso> listaDeProcesso) {
+                       XptoSistemaOperacional sistemaOperacional,
+                       XptoFabricante fabricante,
+                       XptoCpu cpu,
+                       XptoProcesso processo,
+                       List<XptoHd> listaDeHd) {
         this.id = id;
         this.numeroSerial = numeroSerial;
         this.xptoEmpresa = xptoEmpresa;
-        this.listaDeSistemaOperacional = listaDeSistemaOperacional;
-        this.listaDeFabricante = listaDeFabricante;
-        this.listaDeCpu = listaDeCpu;
-        this.listaDeProcesso = listaDeProcesso;
+        this.sistemaOperacional = sistemaOperacional;
+        this.fabricante = fabricante;
+        this.cpu = cpu;
+        this.processo = processo;
+        this.listaDeHd = listaDeHd;
     }
 
     public long getId() {
@@ -84,35 +91,43 @@ public class XptoMaquina implements Serializable{
         this.xptoEmpresa = xptoEmpresa;
     }
 
-    public List<XptoSistemaOperacional> getListaDeSistemaOperacional() {
-        return this.listaDeSistemaOperacional;
+    public XptoSistemaOperacional getSistemaOperacional() {
+        return this.sistemaOperacional;
     }
 
-    public void setListaDeSistemaOperacional(List<XptoSistemaOperacional> listaDeSistemaOperacional) {
-        this.listaDeSistemaOperacional = listaDeSistemaOperacional;
+    public void setSistemaOperacional(XptoSistemaOperacional sistemaOperacional) {
+        this.sistemaOperacional = sistemaOperacional;
     }
 
-    public List<XptoFabricante> getListaDeFabricante() {
-        return this.listaDeFabricante;
+    public XptoFabricante getFabricante() {
+        return this.fabricante;
     }
 
-    public void setListaDeFabricante(List<XptoFabricante> listaDeFabricante) {
-        this.listaDeFabricante = listaDeFabricante;
+    public void setFabricante(XptoFabricante fabricante) {
+        this.fabricante = fabricante;
     }
 
-    public List<XptoCpu> getListaDeCpu() {
-        return this.listaDeCpu;
+    public XptoCpu getCpu() {
+        return this.cpu;
     }
 
-    public void setListaDeCpu(List<XptoCpu> listaDeCpu) {
-        this.listaDeCpu = listaDeCpu;
+    public void setCpu(XptoCpu cpu) {
+        this.cpu = cpu;
     }
 
-    public List<XptoProcesso> getListaDeProcesso() {
-        return this.listaDeProcesso;
+    public XptoProcesso getProcesso() {
+        return this.processo;
     }
 
-    public void setListaDeProcesso(List<XptoProcesso> listaDeProcesso) {
-        this.listaDeProcesso = listaDeProcesso;
+    public void setProcesso(XptoProcesso processo) {
+        this.processo = processo;
+    }
+
+    public List<XptoHd> getListaDeHd() {
+        return listaDeHd;
+    }
+
+    public void setListaDeHd(List<XptoHd> listaDeHd) {
+        this.listaDeHd = listaDeHd;
     }
 }

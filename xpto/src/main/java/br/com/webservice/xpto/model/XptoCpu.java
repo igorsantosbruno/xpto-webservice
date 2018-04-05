@@ -1,6 +1,9 @@
 package br.com.webservice.xpto.model;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity(name = "xpto_cpu")
@@ -8,8 +11,9 @@ public class XptoCpu implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+    @GenericGenerator(name = "generator", strategy = "foreign",
+            parameters = @org.hibernate.annotations.Parameter(name = "property", value = "xptoMaquina"))
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -34,12 +38,13 @@ public class XptoCpu implements Serializable{
     @Column(name = "temperatura")
     private String temperatura;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     private XptoMaquina xptoMaquina;
 
     public XptoCpu(){
 
-        this.id = 0;
+        /*this.id = 0;
         this.descricao = "";
         this.quantidadeFisica = "";
         this.quantidadeLogica = "";
@@ -47,7 +52,7 @@ public class XptoCpu implements Serializable{
         this.codigo = "";
         this.consumoGeral = "";
         this.temperatura = "";
-        this.xptoMaquina = new XptoMaquina();
+        this.xptoMaquina = new XptoMaquina();*/
     }
 
     public XptoCpu(long id,
@@ -136,7 +141,7 @@ public class XptoCpu implements Serializable{
     }
 
     public XptoMaquina getXptoMaquina() {
-        return this.xptoMaquina;
+        return xptoMaquina;
     }
 
     public void setXptoMaquina(XptoMaquina xptoMaquina) {

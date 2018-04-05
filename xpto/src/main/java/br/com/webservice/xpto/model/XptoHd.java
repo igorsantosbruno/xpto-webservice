@@ -14,13 +14,14 @@ public class XptoHd {
     private String descricao;
 
     @ManyToOne
+    @JoinColumn(name = "id_maquina")
     private XptoMaquina xptoMaquina;
 
     public XptoHd(){
 
-        this.id = 0;
+/*        this.id = 0;
         this.descricao = "";
-        this.xptoMaquina = new XptoMaquina();
+        this.xptoMaquina = new XptoMaquina();*/
     }
 
     public XptoHd(long id, String descricao, XptoMaquina xptoMaquina) {

@@ -1,6 +1,9 @@
 package br.com.webservice.xpto.model;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity(name = "xpto_fabricante")
@@ -8,8 +11,9 @@ public class XptoFabricante implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+    @GenericGenerator(name = "generator", strategy = "foreign",
+            parameters = @org.hibernate.annotations.Parameter(name = "property", value = "xptoMaquina"))
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -25,22 +29,26 @@ public class XptoFabricante implements Serializable{
     @Column(name = "modelo_especifico")
     private String modeloEspecifico;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     private XptoMaquina xptoMaquina;
 
     public XptoFabricante(){
 
-        this.id = 0;
+/*        this.id = 0;
         this.descricao = "";
         this.dataFabricacao = "";
         this.modelo = "";
         this.modeloEspecifico = "";
-        this.xptoMaquina = new XptoMaquina();
+        this.xptoMaquina = xptoMaquina;*/
     }
 
     public XptoFabricante(long id,
                           String descricao,
-                          String dataFabricacao, String modelo, String modeloEspecifico, XptoMaquina xptoMaquina) {
+                          String dataFabricacao,
+                          String modelo,
+                          String modeloEspecifico,
+                          XptoMaquina xptoMaquina) {
         this.id = id;
         this.descricao = descricao;
         this.dataFabricacao = dataFabricacao;

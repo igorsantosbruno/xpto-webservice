@@ -1,12 +1,16 @@
 package br.com.webservice.xpto.model;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity(name = "xpto_sistema_operacional")
 public class XptoSistemaOperacional {
 
+    @GenericGenerator(name = "generator", strategy = "foreign",
+            parameters = @org.hibernate.annotations.Parameter(name = "property", value = "xptoMaquina"))
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -16,15 +20,16 @@ public class XptoSistemaOperacional {
     @Column(name = "arquitetura")
     private String arquitetura;
 
-    @ManyToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     private XptoMaquina xptoMaquina;
 
     public XptoSistemaOperacional(){
 
-        this.id = 0;
+        /*this.id = 0;
         this.descricao = "";
         this.arquitetura = "";
-        this.xptoMaquina = new XptoMaquina();
+        this.xptoMaquina = new XptoMaquina();*/
     }
 
     public XptoSistemaOperacional(long id, String descricao, String arquitetura, XptoMaquina xptoMaquina) {

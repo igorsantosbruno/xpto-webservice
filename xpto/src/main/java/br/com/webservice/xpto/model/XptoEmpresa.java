@@ -12,7 +12,7 @@ public class XptoEmpresa implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private int id;
 
     @Column(name = "razao_social")
     private String razaoSocial;
@@ -23,7 +23,10 @@ public class XptoEmpresa implements Serializable{
     @Column(name = "dominio_email")
     private String dominioEmail;
 
-    @OneToMany
+    @Column(name = "hostname")
+    private String hostname;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "xptoEmpresa")
     private List<XptoMaquina> listaDeMaquina;
 
     public XptoEmpresa(){
@@ -32,20 +35,22 @@ public class XptoEmpresa implements Serializable{
         this.razaoSocial = "";
         this.cnpj = "";
         this.dominioEmail = "";
+        this.hostname = "";
     }
 
-    public XptoEmpresa(String razaoSocial, String cnpj, String dominioEmail) {
+    public XptoEmpresa(String razaoSocial, String cnpj, String dominioEmail, String hostname) {
 
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
         this.dominioEmail = dominioEmail;
+        this.hostname = hostname;
     }
 
-    public long getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,11 +78,30 @@ public class XptoEmpresa implements Serializable{
         this.dominioEmail = dominioEmail;
     }
 
+    public String getHostname() {
+        return hostname;
+    }
+
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
     public List<XptoMaquina> getListaDeMaquina() {
         return this.listaDeMaquina;
     }
 
     public void setListaDeMaquina(List<XptoMaquina> listaDeMaquina) {
         this.listaDeMaquina = listaDeMaquina;
+    }
+
+    @Override
+    public String toString() {
+        return "XptoEmpresa{" +
+                "id=" + id +
+                ", razaoSocial='" + razaoSocial + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", dominioEmail='" + dominioEmail + '\'' +
+                ", hostname='" + hostname + '\'' +
+                '}';
     }
 }
