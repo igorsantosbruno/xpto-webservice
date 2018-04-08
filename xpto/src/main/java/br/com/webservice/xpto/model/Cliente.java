@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity(name = "xpto_empresa")
-public class XptoEmpresa implements Serializable{
+@Entity(name = "cliente")
+public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,28 +26,30 @@ public class XptoEmpresa implements Serializable{
     @Column(name = "hostname")
     private String hostname;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "xptoEmpresa")
-    private List<XptoMaquina> listaDeMaquina;
+    @OneToMany(targetEntity = Maquina.class,fetch=FetchType.EAGER,mappedBy = "cliente")
+    private List<Maquina> listaDeMaquina;
 
-    public XptoEmpresa(){
+    public Cliente(){
 
-        this.id = 0;
-        this.razaoSocial = "";
-        this.cnpj = "";
-        this.dominioEmail = "";
-        this.hostname = "";
     }
 
-    public XptoEmpresa(String razaoSocial, String cnpj, String dominioEmail, String hostname) {
+    public Cliente(int id,
+                   String razaoSocial,
+                   String cnpj,
+                   String dominioEmail,
+                   String hostname,
+                   List<Maquina> listaDeMaquina) {
 
+        this.id = id;
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
         this.dominioEmail = dominioEmail;
         this.hostname = hostname;
+        this.listaDeMaquina = listaDeMaquina;
     }
 
     public int getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(int id) {
@@ -55,7 +57,7 @@ public class XptoEmpresa implements Serializable{
     }
 
     public String getRazaoSocial() {
-        return this.razaoSocial;
+        return razaoSocial;
     }
 
     public void setRazaoSocial(String razaoSocial) {
@@ -63,7 +65,7 @@ public class XptoEmpresa implements Serializable{
     }
 
     public String getCnpj() {
-        return this.cnpj;
+        return cnpj;
     }
 
     public void setCnpj(String cnpj) {
@@ -71,7 +73,7 @@ public class XptoEmpresa implements Serializable{
     }
 
     public String getDominioEmail() {
-        return this.dominioEmail;
+        return dominioEmail;
     }
 
     public void setDominioEmail(String dominioEmail) {
@@ -86,17 +88,17 @@ public class XptoEmpresa implements Serializable{
         this.hostname = hostname;
     }
 
-    public List<XptoMaquina> getListaDeMaquina() {
-        return this.listaDeMaquina;
+    public List<Maquina> getListaDeMaquina() {
+        return listaDeMaquina;
     }
 
-    public void setListaDeMaquina(List<XptoMaquina> listaDeMaquina) {
+    public void setListaDeMaquina(List<Maquina> listaDeMaquina) {
         this.listaDeMaquina = listaDeMaquina;
     }
 
     @Override
     public String toString() {
-        return "XptoEmpresa{" +
+        return "Cliente{" +
                 "id=" + id +
                 ", razaoSocial='" + razaoSocial + '\'' +
                 ", cnpj='" + cnpj + '\'' +
