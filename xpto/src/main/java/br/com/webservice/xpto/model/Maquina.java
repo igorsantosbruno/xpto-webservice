@@ -42,6 +42,12 @@ public class Maquina implements Serializable{
 
     }
 
+    public Maquina(String serial, Cliente cliente){
+
+        this.serial = serial;
+        this.cliente = cliente;
+    }
+
     public Maquina(int id,
                    String serial,
                    Cliente cliente,
