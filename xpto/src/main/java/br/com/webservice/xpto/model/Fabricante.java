@@ -47,6 +47,15 @@ public class Fabricante implements Serializable{
         this.maquina = maquina;
     }
 
+    public Fabricante(String descricao, String modelo, String dataDeFabricacao, String modeloEspecifico, Maquina maquina){
+
+        this.descricao = descricao;
+        this.modelo = modelo;
+        this.dataFabricacao = dataDeFabricacao;
+        this.modeloEspecifico = modeloEspecifico;
+        this.maquina = maquina;
+    }
+
     public int getId() {
         return id;
     }

@@ -63,6 +63,18 @@ public class Processador implements Serializable{
         this.maquina = maquina;
     }
 
+    public Processador(String descricao,
+                       int quantidadeLogica,
+                       int quantidadeFisica, String identificador, String codigo, Maquina maquina){
+
+        this.descricao = descricao;
+        this.quantidadeLogica = quantidadeLogica;
+        this.quantidadeFisica = quantidadeFisica;
+        this.identificador = identificador;
+        this.codigo = codigo;
+        this.maquina = maquina;
+    }
+
     public int getId() {
         return id;
     }

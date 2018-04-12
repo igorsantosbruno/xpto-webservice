@@ -38,6 +38,9 @@ public class Maquina implements Serializable{
     @OneToOne(mappedBy = "maquina")
     private Hd hd;
 
+    @OneToOne(mappedBy = "maquina")
+    private Ram ram;
+
     public Maquina(){
 
     }
@@ -56,7 +59,8 @@ public class Maquina implements Serializable{
                    SistemaOperacional sistemaOperacional,
                    Fabricante fabricante,
                    Processo processo,
-                   Hd hd) {
+                   Hd hd,
+                   Ram ram) {
 
         this.id = id;
         this.serial = serial;
@@ -67,6 +71,7 @@ public class Maquina implements Serializable{
         this.fabricante = fabricante;
         this.processo = processo;
         this.hd = hd;
+        this.ram = ram;
     }
 
     public int getId() {
@@ -139,6 +144,14 @@ public class Maquina implements Serializable{
 
     public void setHd(Hd hd) {
         this.hd = hd;
+    }
+
+    public Ram getRam() {
+        return ram;
+    }
+
+    public void setRam(Ram ram) {
+        this.ram = ram;
     }
 
     @Override
