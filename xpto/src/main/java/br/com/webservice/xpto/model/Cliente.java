@@ -26,8 +26,8 @@ public class Cliente implements Serializable {
     @Column(name = "hostname")
     private String hostname;
 
-    @OneToMany(targetEntity = Maquina.class,fetch=FetchType.EAGER,mappedBy = "cliente")
-    private List<Maquina> listaDeMaquina;
+    @OneToMany(targetEntity = Maquina.class,cascade = CascadeType.ALL,mappedBy = "cliente")
+    private List<Maquina> maquinas;
 
     public Cliente(){
 
@@ -38,14 +38,14 @@ public class Cliente implements Serializable {
                    String cnpj,
                    String dominioEmail,
                    String hostname,
-                   List<Maquina> listaDeMaquina) {
+                   List<Maquina> maquinas) {
 
         this.id = id;
         this.razaoSocial = razaoSocial;
         this.cnpj = cnpj;
         this.dominioEmail = dominioEmail;
         this.hostname = hostname;
-        this.listaDeMaquina = listaDeMaquina;
+        this.maquinas = maquinas;
     }
 
     public int getId() {
@@ -88,12 +88,12 @@ public class Cliente implements Serializable {
         this.hostname = hostname;
     }
 
-    public List<Maquina> getListaDeMaquina() {
-        return listaDeMaquina;
+    public List<Maquina> getMaquinas() {
+        return maquinas;
     }
 
-    public void setListaDeMaquina(List<Maquina> listaDeMaquina) {
-        this.listaDeMaquina = listaDeMaquina;
+    public void setMaquinas(List<Maquina> maquinas) {
+        this.maquinas = maquinas;
     }
 
     @Override

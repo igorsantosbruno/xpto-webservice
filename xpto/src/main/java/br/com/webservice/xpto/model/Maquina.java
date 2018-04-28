@@ -21,57 +21,16 @@ public class Maquina implements Serializable{
     private Cliente cliente;
 
     @OneToOne(mappedBy = "maquina")
-    private UsuarioMaquina usuarioMaquina;
-
-    @OneToOne(mappedBy = "maquina")
-    private Processador processador;
-
-    @OneToOne(mappedBy = "maquina")
-    private SistemaOperacional sistemaOperacional;
-
-    @OneToOne(mappedBy = "maquina")
-    private Fabricante fabricante;
-
-    @OneToOne(mappedBy = "maquina")
-    private Processo processo;
-
-    @OneToOne(mappedBy = "maquina")
-    private Hd hd;
-
-    @OneToOne(mappedBy = "maquina")
-    private Ram ram;
+    private Hardware hardware;
 
     public Maquina(){
 
     }
 
-    public Maquina(String serial, Cliente cliente){
+    public Maquina(String serial, Cliente cliente) {
 
         this.serial = serial;
         this.cliente = cliente;
-    }
-
-    public Maquina(int id,
-                   String serial,
-                   Cliente cliente,
-                   UsuarioMaquina usuarioMaquina,
-                   Processador processador,
-                   SistemaOperacional sistemaOperacional,
-                   Fabricante fabricante,
-                   Processo processo,
-                   Hd hd,
-                   Ram ram) {
-
-        this.id = id;
-        this.serial = serial;
-        this.cliente = cliente;
-        this.usuarioMaquina = usuarioMaquina;
-        this.processador = processador;
-        this.sistemaOperacional = sistemaOperacional;
-        this.fabricante = fabricante;
-        this.processo = processo;
-        this.hd = hd;
-        this.ram = ram;
     }
 
     public int getId() {
@@ -98,74 +57,12 @@ public class Maquina implements Serializable{
         this.cliente = cliente;
     }
 
-    public UsuarioMaquina getUsuarioMaquina() {
-        return usuarioMaquina;
-    }
-
-    public void setUsuarioMaquina(UsuarioMaquina usuarioMaquina) {
-        this.usuarioMaquina = usuarioMaquina;
-    }
-
-    public Processador getProcessador() {
-        return processador;
-    }
-
-    public void setProcessador(Processador processador) {
-        this.processador = processador;
-    }
-
-    public SistemaOperacional getSistemaOperacional() {
-        return sistemaOperacional;
-    }
-
-    public void setSistemaOperacional(SistemaOperacional sistemaOperacional) {
-        this.sistemaOperacional = sistemaOperacional;
-    }
-
-    public Fabricante getFabricante() {
-        return fabricante;
-    }
-
-    public void setFabricante(Fabricante fabricante) {
-        this.fabricante = fabricante;
-    }
-
-    public Processo getProcesso() {
-        return processo;
-    }
-
-    public void setProcesso(Processo processo) {
-        this.processo = processo;
-    }
-
-    public Hd getHd() {
-        return hd;
-    }
-
-    public void setHd(Hd hd) {
-        this.hd = hd;
-    }
-
-    public Ram getRam() {
-        return ram;
-    }
-
-    public void setRam(Ram ram) {
-        this.ram = ram;
-    }
-
     @Override
     public String toString() {
         return "Maquina{" +
                 "id=" + id +
                 ", serial='" + serial + '\'' +
                 ", cliente=" + cliente +
-                ", usuarioMaquina=" + usuarioMaquina +
-                ", processador=" + processador +
-                ", sistemaOperacional=" + sistemaOperacional +
-                ", fabricante=" + fabricante +
-                ", processo=" + processo +
-                ", hd=" + hd +
                 '}';
     }
 }
