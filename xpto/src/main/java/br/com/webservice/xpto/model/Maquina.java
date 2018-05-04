@@ -2,6 +2,7 @@ package br.com.webservice.xpto.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity(name = "Maquina")
 public class Maquina implements Serializable{
@@ -20,8 +21,11 @@ public class Maquina implements Serializable{
     @JoinColumn(name = "cliente_hostname", referencedColumnName = "hostname")
     private Cliente cliente;
 
-    @OneToOne(mappedBy = "maquina")
+    @OneToOne(targetEntity = Hardware.class, mappedBy = "maquina")
     private Hardware hardware;
+
+    @OneToMany(targetEntity = Monitoramento.class,cascade = CascadeType.ALL,mappedBy = "maquina")
+    private List<Monitoramento> monitoramentos;
 
     public Maquina(){
 
@@ -55,6 +59,22 @@ public class Maquina implements Serializable{
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public Hardware getHardware() {
+        return hardware;
+    }
+
+    public void setHardware(Hardware hardware) {
+        this.hardware = hardware;
+    }
+
+    public List<Monitoramento> getMonitoramentos() {
+        return monitoramentos;
+    }
+
+    public void setMonitoramentos(List<Monitoramento> monitoramentos) {
+        this.monitoramentos = monitoramentos;
     }
 
     @Override

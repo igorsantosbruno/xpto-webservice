@@ -7,6 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 public interface MaquinaRepository extends CrudRepository<Maquina,Integer>{
 
-    @Query("SELECT m FROM Maquina m WHERE m.serial = :serial")
-    Maquina findBySerial(@Param("serial") String serial);
+    @Query("SELECT m.serial FROM Maquina m WHERE m.serial = :serial")
+    String findBySerial(@Param("serial") String serial);
 }

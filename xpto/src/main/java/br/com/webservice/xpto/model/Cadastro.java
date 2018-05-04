@@ -1,6 +1,10 @@
 package br.com.webservice.xpto.model;
 
-public class RequestCadastro {
+import java.io.Serializable;
+
+public class Cadastro implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String serial;
     private String hostname;
@@ -18,25 +22,25 @@ public class RequestCadastro {
     private String descricaoSistemaOperacional;
     private String usuarioLogado;
 
-    public RequestCadastro(){
+    public Cadastro(){
 
     }
 
-    public RequestCadastro(String serial,
-                           String hostname,
-                           String dataFabricacao,
-                           String descricaoFabricante,
-                           String modeloFabricante,
-                           String modeloEspecificoFabricante,
-                           String codigoProcessador,
-                           String descricaoProcessador,
-                           String identificadorProcessador,
-                           String quantidadeFisicaProcessador,
-                           String quantidadeLogicaProcessador,
-                           String espacoTotalRam,
-                           String arquiteturaSistemaOperacional,
-                           String descricaoSistemaOperacional,
-                           String usuarioLogado) {
+    public Cadastro(String serial,
+                    String hostname,
+                    String dataFabricacao,
+                    String descricaoFabricante,
+                    String modeloFabricante,
+                    String modeloEspecificoFabricante,
+                    String codigoProcessador,
+                    String descricaoProcessador,
+                    String identificadorProcessador,
+                    String quantidadeFisicaProcessador,
+                    String quantidadeLogicaProcessador,
+                    String espacoTotalRam,
+                    String arquiteturaSistemaOperacional,
+                    String descricaoSistemaOperacional,
+                    String usuarioLogado) {
 
         this.serial = serial;
         this.hostname = hostname;
@@ -177,7 +181,7 @@ public class RequestCadastro {
 
     @Override
     public String toString() {
-        return "RequestCadastro{" +
+        return "Cadastro{" +
                 "serial='" + serial + '\'' +
                 ", hostname='" + hostname + '\'' +
                 ", dataFabricacao='" + dataFabricacao + '\'' +

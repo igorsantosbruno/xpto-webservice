@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity(name = "monitoramento")
-public class Monitoramento implements Serializable{
+public class Monitoramento implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,6 +31,16 @@ public class Monitoramento implements Serializable{
 
     public Monitoramento(){
 
+    }
+
+    public Monitoramento(float consumoCpu, float percentualRam, float percentualHd) {
+
+        this.id = 0;
+        this.consumoCpu = consumoCpu;
+        this.temperaturaCpu = 0;
+        this.percentualRam = percentualRam;
+        this.percentualHd = percentualHd;
+        this.maquina = new Maquina();
     }
 
     public int getId() {

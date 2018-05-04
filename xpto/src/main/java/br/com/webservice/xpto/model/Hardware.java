@@ -52,7 +52,7 @@ public class Hardware implements Serializable{
     @Column(name = "usuario_logado")
     private String usuarioLogado;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "maquina_serial", referencedColumnName = "serial")
     private Maquina maquina;
 
