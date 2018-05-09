@@ -16,7 +16,7 @@ public class UsuarioMaquina implements Serializable{
     @Column(name = "email")
     private String email;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "maquina_serial", referencedColumnName = "serial")
     private Maquina maquina;
 

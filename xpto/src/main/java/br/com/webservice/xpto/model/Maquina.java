@@ -17,15 +17,21 @@ public class Maquina implements Serializable{
     @Column(name = "serial")
     private String serial;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_hostname", referencedColumnName = "hostname")
     private Cliente cliente;
 
-    @OneToOne(targetEntity = Hardware.class, mappedBy = "maquina")
-    private Hardware hardware;
+    @OneToMany(targetEntity = Hardware.class, mappedBy = "maquina", fetch = FetchType.LAZY)
+    private List<Hardware> hardwares;
 
-    @OneToMany(targetEntity = Monitoramento.class,cascade = CascadeType.ALL,mappedBy = "maquina")
+    @OneToMany(targetEntity = UsuarioMaquina.class, mappedBy = "maquina", fetch = FetchType.LAZY)
+    private List<UsuarioMaquina> usuariosMaquina;
+
+    @OneToMany(targetEntity = Monitoramento.class,cascade = CascadeType.ALL,mappedBy = "maquina", fetch = FetchType.LAZY)
     private List<Monitoramento> monitoramentos;
+
+    @OneToMany(targetEntity = Hd.class,cascade = CascadeType.ALL,mappedBy = "maquina", fetch = FetchType.LAZY)
+    private List<Hd> hds;
 
     public Maquina(){
 
@@ -61,12 +67,20 @@ public class Maquina implements Serializable{
         this.cliente = cliente;
     }
 
-    public Hardware getHardware() {
-        return hardware;
+    public List<Hardware> getHardware() {
+        return hardwares;
     }
 
-    public void setHardware(Hardware hardware) {
-        this.hardware = hardware;
+    public void setHardware(List<Hardware> hardwares) {
+        this.hardwares = hardwares;
+    }
+
+    public List<UsuarioMaquina> getUsuariosMaquina() {
+        return usuariosMaquina;
+    }
+
+    public void setUsuariosMaquina(List<UsuarioMaquina> usuariosMaquina) {
+        this.usuariosMaquina = usuariosMaquina;
     }
 
     public List<Monitoramento> getMonitoramentos() {
@@ -75,6 +89,14 @@ public class Maquina implements Serializable{
 
     public void setMonitoramentos(List<Monitoramento> monitoramentos) {
         this.monitoramentos = monitoramentos;
+    }
+
+    public List<Hd> getHds() {
+        return hds;
+    }
+
+    public void setHds(List<Hd> hds) {
+        this.hds = hds;
     }
 
     @Override

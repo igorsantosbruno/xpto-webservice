@@ -16,7 +16,7 @@ public class Hd implements Serializable{
     @Column(name = "descricao")
     private String descricao;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "maquina_serial", referencedColumnName = "serial")
     private Maquina maquina;
 

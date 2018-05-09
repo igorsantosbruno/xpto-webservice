@@ -26,7 +26,7 @@ public class Cliente implements Serializable {
     @Column(name = "hostname")
     private String hostname;
 
-    @OneToMany(targetEntity = Maquina.class,cascade = CascadeType.ALL,mappedBy = "cliente")
+    @OneToMany(targetEntity = Maquina.class,cascade = CascadeType.ALL,mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Maquina> maquinas;
 
     public Cliente(){

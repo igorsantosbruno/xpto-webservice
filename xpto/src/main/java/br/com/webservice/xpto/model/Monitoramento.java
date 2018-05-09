@@ -25,7 +25,7 @@ public class Monitoramento implements Serializable {
     @Column(name = "percentual_hd")
     private float percentualHd;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "maquina_serial", referencedColumnName = "serial")
     private Maquina maquina;
 
@@ -89,5 +89,17 @@ public class Monitoramento implements Serializable {
 
     public void setMaquina(Maquina maquina) {
         this.maquina = maquina;
+    }
+
+    @Override
+    public String toString() {
+        return "Monitoramento{" +
+                "id=" + id +
+                ", consumoCpu=" + consumoCpu +
+                ", temperaturaCpu=" + temperaturaCpu +
+                ", percentualRam=" + percentualRam +
+                ", percentualHd=" + percentualHd +
+                ", maquina=" + maquina +
+                '}';
     }
 }
