@@ -2,7 +2,9 @@ package br.com.webservice.xpto.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
+@Table(name = "XPTOTBA07_MONITORAMENTO")
 @Entity(name = "monitoramento")
 public class Monitoramento implements Serializable {
 
@@ -22,12 +24,12 @@ public class Monitoramento implements Serializable {
     @Column(name = "percentual_ram")
     private float percentualRam;
 
-    @Column(name = "percentual_hd")
-    private float percentualHd;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "maquina_serial", referencedColumnName = "serial")
     private Maquina maquina;
+
+    @OneToMany(targetEntity = MonitoramentoHd.class, mappedBy = "monitoramento", fetch = FetchType.LAZY)
+    private List<MonitoramentoHd> monitoramentoHds;
 
     public Monitoramento(){
 
@@ -39,7 +41,6 @@ public class Monitoramento implements Serializable {
         this.consumoCpu = consumoCpu;
         this.temperaturaCpu = 0;
         this.percentualRam = percentualRam;
-        this.percentualHd = percentualHd;
         this.maquina = new Maquina();
     }
 
@@ -75,20 +76,20 @@ public class Monitoramento implements Serializable {
         this.percentualRam = percentualRam;
     }
 
-    public float getPercentualHd() {
-        return percentualHd;
-    }
-
-    public void setPercentualHd(float percentualHd) {
-        this.percentualHd = percentualHd;
-    }
-
     public Maquina getMaquina() {
         return maquina;
     }
 
     public void setMaquina(Maquina maquina) {
         this.maquina = maquina;
+    }
+
+    public List<MonitoramentoHd> getMonitoramentoHds() {
+        return monitoramentoHds;
+    }
+
+    public void setMonitoramentoHds(List<MonitoramentoHd> monitoramentoHds) {
+        this.monitoramentoHds = monitoramentoHds;
     }
 
     @Override
@@ -98,7 +99,6 @@ public class Monitoramento implements Serializable {
                 ", consumoCpu=" + consumoCpu +
                 ", temperaturaCpu=" + temperaturaCpu +
                 ", percentualRam=" + percentualRam +
-                ", percentualHd=" + percentualHd +
                 ", maquina=" + maquina +
                 '}';
     }

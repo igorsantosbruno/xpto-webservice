@@ -3,6 +3,7 @@ package br.com.webservice.xpto.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Table(name = "XPTOTBA06_HARDWARE")
 @Entity(name = "hardware")
 public class Hardware implements Serializable{
 

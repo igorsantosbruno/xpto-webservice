@@ -4,56 +4,46 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Table(name = "XPTOTBA01_CLIENTE")
 @Entity(name = "cliente")
 public class Cliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "hostname")
+    private String hostname;
 
     @Column(name = "razao_social")
     private String razaoSocial;
 
-    @Column(name = "cnpj")
-    private String cnpj;
+    @Column(name = "codigo")
+    private String codigo;
 
     @Column(name = "dominio_email")
     private String dominioEmail;
 
-    @Column(name = "hostname")
-    private String hostname;
-
     @OneToMany(targetEntity = Maquina.class,cascade = CascadeType.ALL,mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Maquina> maquinas;
+
+    @OneToMany(targetEntity = Analista.class,cascade = CascadeType.ALL,mappedBy = "cliente", fetch = FetchType.LAZY)
+    private List<Analista> analistas;
 
     public Cliente(){
 
     }
 
-    public Cliente(int id,
-                   String razaoSocial,
-                   String cnpj,
+    public Cliente(String razaoSocial,
+                   String codigo,
                    String dominioEmail,
                    String hostname,
                    List<Maquina> maquinas) {
 
-        this.id = id;
         this.razaoSocial = razaoSocial;
-        this.cnpj = cnpj;
+        this.codigo = codigo;
         this.dominioEmail = dominioEmail;
         this.hostname = hostname;
         this.maquinas = maquinas;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getRazaoSocial() {
@@ -64,12 +54,12 @@ public class Cliente implements Serializable {
         this.razaoSocial = razaoSocial;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public String getDominioEmail() {
@@ -96,12 +86,19 @@ public class Cliente implements Serializable {
         this.maquinas = maquinas;
     }
 
+    public List<Analista> getAnalistas() {
+        return analistas;
+    }
+
+    public void setAnalistas(List<Analista> analistas) {
+        this.analistas = analistas;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
-                "id=" + id +
                 ", razaoSocial='" + razaoSocial + '\'' +
-                ", cnpj='" + cnpj + '\'' +
+                ", codigo='" + codigo + '\'' +
                 ", dominioEmail='" + dominioEmail + '\'' +
                 ", hostname='" + hostname + '\'' +
                 '}';

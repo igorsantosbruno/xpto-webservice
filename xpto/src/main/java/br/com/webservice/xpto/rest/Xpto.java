@@ -2,16 +2,17 @@ package br.com.webservice.xpto.rest;
 
 import br.com.webservice.xpto.model.*;
 import br.com.webservice.xpto.repository.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/xptoservice")
 public class Xpto {
-
-    @Autowired
-    private JdbcQuery jdbcQuery;
 
     @Autowired
     private MaquinaRepository maquinaRepository;
@@ -24,6 +25,9 @@ public class Xpto {
 
     @Autowired
     private MonitoramentoRepository monitoramentoRepository;
+
+    @Autowired
+    private MonitoramentoHdRepository monitoramentoHdRepository;
 
     @RequestMapping(value="/maquina/cadastro",
             method = RequestMethod.POST,
@@ -116,9 +120,8 @@ public class Xpto {
     @RequestMapping(value="/maquina/retornaMonitoramento",
             method = RequestMethod.GET,
             produces=MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody QueryMonitoramento retornaMonitoramento(@RequestParam("serial") String serial){
+    public @ResponseBody Monitoramento retornaMonitoramento(@RequestParam("serial") String serial){
 
-        boolean erro = false;
         int id = 0;
         try{
 
@@ -126,17 +129,28 @@ public class Xpto {
         }catch (Exception e) {
 
             System.out.println("Erro ao obter ultimo id da tabela monitoramento");
-            erro = true;
             e.printStackTrace();
         }
 
-        QueryMonitoramento queryMonitoramento = null;
-        if(!erro) {
+        Monitoramento monitoramento = null;
+        try{
 
-            queryMonitoramento = this.jdbcQuery.retornaMonitoramento(id);
+            monitoramento = this.monitoramentoRepository.findById(id);
+        }catch (Exception e){
+
+            System.out.println("Erro ao encontrar monitoramento por id");
+            e.printStackTrace();
         }
 
-        return queryMonitoramento;
+        monitoramento.setMaquina(null);
+        List<MonitoramentoHd> listaMonitoramentoHd = new ArrayList<MonitoramentoHd>();
+        for (MonitoramentoHd monitoramentoHd : monitoramento.getMonitoramentoHds()){
+
+            monitoramentoHd.setMonitoramento(null);
+            listaMonitoramentoHd.add(monitoramentoHd);
+        }
+        monitoramento.setMonitoramentoHds(listaMonitoramentoHd);
+        return monitoramento;
     }
 }
 

@@ -4,16 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+@Table(name = "XPTOTBA03_MAQUINA")
 @Entity(name = "Maquina")
 public class Maquina implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
     @Column(name = "serial")
     private String serial;
 
@@ -43,13 +40,6 @@ public class Maquina implements Serializable{
         this.cliente = cliente;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getSerial() {
         return serial;
@@ -102,7 +92,6 @@ public class Maquina implements Serializable{
     @Override
     public String toString() {
         return "Maquina{" +
-                "id=" + id +
                 ", serial='" + serial + '\'' +
                 ", cliente=" + cliente +
                 '}';

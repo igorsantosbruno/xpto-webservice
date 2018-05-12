@@ -3,6 +3,7 @@ package br.com.webservice.xpto.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Table(name = "XPTOTBA04_USUARIOMAQUINA")
 @Entity(name = "usuario_maquina")
 public class UsuarioMaquina implements Serializable{
 
