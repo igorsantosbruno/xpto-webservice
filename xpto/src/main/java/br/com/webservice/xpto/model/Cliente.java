@@ -23,6 +23,9 @@ public class Cliente implements Serializable {
     @Column(name = "dominio_email")
     private String dominioEmail;
 
+    @Column(name = "canal")
+    private String canal;
+
     @OneToMany(targetEntity = Maquina.class,cascade = CascadeType.ALL,mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Maquina> maquinas;
 
@@ -46,51 +49,73 @@ public class Cliente implements Serializable {
         this.maquinas = maquinas;
     }
 
+    public String getHostname() {
+
+        return this.hostname;
+    }
+
+    public void setHostname(String hostname) {
+
+        this.hostname = hostname;
+    }
+
     public String getRazaoSocial() {
-        return razaoSocial;
+
+        return this.razaoSocial;
     }
 
     public void setRazaoSocial(String razaoSocial) {
+
         this.razaoSocial = razaoSocial;
     }
 
     public String getCodigo() {
-        return codigo;
+
+        return this.codigo;
     }
 
     public void setCodigo(String codigo) {
+
         this.codigo = codigo;
     }
 
     public String getDominioEmail() {
-        return dominioEmail;
+
+        return this.dominioEmail;
     }
 
     public void setDominioEmail(String dominioEmail) {
+
         this.dominioEmail = dominioEmail;
     }
 
-    public String getHostname() {
-        return hostname;
+    public String getCanal() {
+
+        return this.canal;
     }
 
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
+    public void setCanal(String canal) {
+
+        this.canal = canal;
     }
 
     public List<Maquina> getMaquinas() {
-        return maquinas;
+
+        return this.maquinas;
     }
 
     public void setMaquinas(List<Maquina> maquinas) {
+
         this.maquinas = maquinas;
     }
 
     public List<Analista> getAnalistas() {
-        return analistas;
+
+        return this.analistas;
     }
 
     public void setAnalistas(List<Analista> analistas) {
+
         this.analistas = analistas;
     }
 

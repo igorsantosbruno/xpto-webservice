@@ -1,6 +1,8 @@
 package br.com.webservice.xpto.rest;
 
 import br.com.webservice.xpto.model.*;
+import br.com.webservice.xpto.model.MonitoramentoHd;
+import br.com.webservice.xpto.model.request.*;
 import br.com.webservice.xpto.repository.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,9 +99,7 @@ public class Xpto {
         }
     }
 
-    @RequestMapping(value="/maquina/retornaExistenciaMaquina",
-            method = RequestMethod.GET,
-            produces=MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/maquina/retornaExistenciaMaquina")
     public @ResponseBody String retornaExistenciaMaquina(@RequestParam("serial") String serial){
 
         String maquina = null;
@@ -144,13 +144,48 @@ public class Xpto {
 
         monitoramento.setMaquina(null);
         List<MonitoramentoHd> listaMonitoramentoHd = new ArrayList<MonitoramentoHd>();
-        for (MonitoramentoHd monitoramentoHd : monitoramento.getMonitoramentoHds()){
+        for (MonitoramentoHd monitoramentoHd : monitoramento.getListaMonitoramentoHd()){
 
             monitoramentoHd.setMonitoramento(null);
             listaMonitoramentoHd.add(monitoramentoHd);
         }
-        monitoramento.setMonitoramentoHds(listaMonitoramentoHd);
+        monitoramento.setListaMonitoramentoHd(listaMonitoramentoHd);
+        System.out.println("Monitoramento retornado com sucesso");
         return monitoramento;
+    }
+
+    @RequestMapping(value="/maquina/gravarMonitoramento",
+            method = RequestMethod.POST,
+            consumes= MediaType.APPLICATION_JSON_VALUE,
+            produces=MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody void gravarMonitoramento(@RequestBody GravarMonitoramento gravarMonitoramento){
+
+        Maquina maquina = maquinaRepository.consultaPorSerial(gravarMonitoramento.getSerial());
+        List<MonitoramentoHd> listaDisco = new ArrayList<>();
+        Monitoramento monitoramento = new Monitoramento(gravarMonitoramento.getTemperaturaCpu(),
+                gravarMonitoramento.getPercentualRam(), maquina);
+        monitoramentoRepository.save    (monitoramento);
+        monitoramento = monitoramentoRepository.obtemUltimoMonitoramento(monitoramentoRepository.obtemUltimoId(gravarMonitoramento.getSerial()));
+        for(br.com.webservice.xpto.model.request.MonitoramentoHd monitoramentoHd : gravarMonitoramento.getListaDisco()){
+
+            monitoramentoHdRepository.save(new MonitoramentoHd(monitoramentoHd.getPercentualUtilizado(),monitoramentoHd.getCaminhoAbsoluto(), monitoramento));
+        }
+    }
+
+    @GetMapping("/cliente/retornaCanal")
+    public @ResponseBody String retornaCanal(@RequestParam("hostname") String hostname){
+
+        String canal;
+        try {
+
+            canal = clienteRepository.findCanalByHostname(hostname);
+        } catch(Exception e) {
+
+            e.printStackTrace();
+            return null;
+        }
+
+        return canal;
     }
 }
 

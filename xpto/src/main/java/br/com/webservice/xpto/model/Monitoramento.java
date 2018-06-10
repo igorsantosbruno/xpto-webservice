@@ -15,33 +15,31 @@ public class Monitoramento implements Serializable {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "consumo_cpu")
-    private float consumoCpu;
-
     @Column(name = "temperatura_cpu")
-    private float temperaturaCpu;
+    private double temperaturaCpu;
 
     @Column(name = "percentual_ram")
-    private float percentualRam;
+    private double percentualRam;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "maquina_serial", referencedColumnName = "serial")
     private Maquina maquina;
 
     @OneToMany(targetEntity = MonitoramentoHd.class, mappedBy = "monitoramento", fetch = FetchType.LAZY)
-    private List<MonitoramentoHd> monitoramentoHds;
+    private List<MonitoramentoHd> listaMonitoramentoHd;
 
     public Monitoramento(){
 
     }
 
-    public Monitoramento(float consumoCpu, float percentualRam, float percentualHd) {
+    public Monitoramento(
+                         double temperaturaCpu,
+                         double percentualRam,
+                         Maquina maquina) {
 
-        this.id = 0;
-        this.consumoCpu = consumoCpu;
-        this.temperaturaCpu = 0;
+        this.temperaturaCpu = temperaturaCpu;
         this.percentualRam = percentualRam;
-        this.maquina = new Maquina();
+        this.maquina = maquina;
     }
 
     public int getId() {
@@ -52,23 +50,15 @@ public class Monitoramento implements Serializable {
         this.id = id;
     }
 
-    public float getConsumoCpu() {
-        return consumoCpu;
-    }
-
-    public void setConsumoCpu(float consumoCpu) {
-        this.consumoCpu = consumoCpu;
-    }
-
-    public float getTemperaturaCpu() {
+    public double getTemperaturaCpu() {
         return temperaturaCpu;
     }
 
-    public void setTemperaturaCpu(float temperaturaCpu) {
+    public void setTemperaturaCpu(double temperaturaCpu) {
         this.temperaturaCpu = temperaturaCpu;
     }
 
-    public float getPercentualRam() {
+    public double getPercentualRam() {
         return percentualRam;
     }
 
@@ -84,22 +74,11 @@ public class Monitoramento implements Serializable {
         this.maquina = maquina;
     }
 
-    public List<MonitoramentoHd> getMonitoramentoHds() {
-        return monitoramentoHds;
+    public List<MonitoramentoHd> getListaMonitoramentoHd() {
+        return listaMonitoramentoHd;
     }
 
-    public void setMonitoramentoHds(List<MonitoramentoHd> monitoramentoHds) {
-        this.monitoramentoHds = monitoramentoHds;
-    }
-
-    @Override
-    public String toString() {
-        return "Monitoramento{" +
-                "id=" + id +
-                ", consumoCpu=" + consumoCpu +
-                ", temperaturaCpu=" + temperaturaCpu +
-                ", percentualRam=" + percentualRam +
-                ", maquina=" + maquina +
-                '}';
+    public void setListaMonitoramentoHd(List<MonitoramentoHd> listaMonitoramentoHd) {
+        this.listaMonitoramentoHd = listaMonitoramentoHd;
     }
 }

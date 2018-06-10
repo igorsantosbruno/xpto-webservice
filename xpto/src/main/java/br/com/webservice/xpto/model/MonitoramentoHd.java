@@ -15,7 +15,7 @@ public class MonitoramentoHd implements Serializable{
     private int id;
 
     @Column(name = "percentual_utilizado")
-    private double percentualUtilizado;
+    private float percentualUtilizado;
 
     @Column(name = "caminho_absoluto")
     private String caminhoAbsoluto;
@@ -28,12 +28,11 @@ public class MonitoramentoHd implements Serializable{
 
     }
 
-    public MonitoramentoHd(int id,
-                           double percentualUtilizado,
+    public MonitoramentoHd(
+                           float percentualUtilizado,
                            String caminhoAbsoluto,
                            Monitoramento monitoramento) {
 
-        this.id = id;
         this.percentualUtilizado = percentualUtilizado;
         this.caminhoAbsoluto = caminhoAbsoluto;
         this.monitoramento = monitoramento;
@@ -47,11 +46,11 @@ public class MonitoramentoHd implements Serializable{
         this.id = id;
     }
 
-    public double getPercentualUtilizado() {
+    public float getPercentualUtilizado() {
         return percentualUtilizado;
     }
 
-    public void setPercentualUtilizado(double percentualUtilizado) {
+    public void setPercentualUtilizado(float percentualUtilizado) {
         this.percentualUtilizado = percentualUtilizado;
     }
 
